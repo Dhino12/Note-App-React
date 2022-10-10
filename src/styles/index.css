@@ -1,0 +1,293 @@
+@font-face {
+  font-family: 'barlow-medium';
+  src: url('../../public/Barlow-Medium.ttf');
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.me-0 {
+  margin-right: 0 !important;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.ms-2 {
+  margin-left: 2rem;
+}
+
+.border-red {
+  border: 2px solid deeppink !important;
+}
+
+.text-red {
+  color: red;
+  font-weight: 500;
+  font-family: 'barlow-medium';
+}
+
+header {
+  width: 100%;
+  background-color: black;
+  padding: 20px 15vh;
+  color: white;
+  display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  justify-content: space-between;
+}
+
+header h1 {
+  margin: 0;
+  color: black;
+  display: inline-block;
+  text-shadow: 2px 2px 1px white;
+  -webkit-text-stroke: .5px;
+  -webkit-text-stroke-color: white;
+}
+
+#search {
+  width: 20%;
+  margin-right: 20vh;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+#jumbotron { 
+  display: flex;
+  flex-direction: row;
+  padding: 45px 20px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#jumbotron img {
+  width: 20%;
+}
+
+.content-jumbotron {
+  width: 40%;
+}
+
+.content-jumbotron h1 {
+  margin-bottom: 30px;
+  font-family: 'barlow-medium';
+  font-size: 2.2rem  ;
+}
+
+.addNote p, .addNote a {
+  display: inline-block;
+}
+
+.addNote p {
+  position: relative;
+  top: 5px;
+}
+
+/* Modal */
+label {
+  margin-bottom: 10px;
+}
+.button-add {
+  position: relative;
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 2px solid black;
+  color: black;
+  margin-right: 40px;
+  font-family: 'barlow-medium';
+}
+
+.button-add:hover {
+  background-color: black;
+  color: white;
+  transition: .2s ease;
+}
+
+.button-add:hover::after {
+  border: 2px solid black;
+  top: 5px;
+  left: 5px;
+}
+
+.button-add::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 5px;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+  transition: all .5s ease;
+}
+
+.back-dark {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: 1;
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.form-input {
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  padding: 10px; 
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+  animation: animateTop 1s ease;
+}
+
+.form-input input, .form-input textarea, .form-input button {
+  padding: 10px;
+  border-radius: 7px;
+  margin-bottom: 5px;
+  font-family: 'barlow-medium';
+}
+
+.form-input button {
+  cursor: pointer;
+  width: 45%;
+}
+
+@keyframes animateTop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+/* End Modal */
+
+footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 8vh;
+}
+
+footer p{
+  margin-right: 20px;
+}
+
+.content {
+  display: flex; 
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 50vh;
+  height: 50vh;
+  border: 2px solid black;
+  position: relative;
+  border-radius: 8px;
+  margin-right: 10px;
+  margin-top: 20px;
+  padding: 15px;
+  transition: .2s ease-in-out;
+}
+
+.card:hover {
+  background-color: black;
+  color: white;
+}
+
+.action {
+  position: absolute;
+  bottom: 5vh;
+  background-color: transparent;
+}
+
+.action button {
+  padding: 5px 15px;
+  border-radius: 4px;
+  border: 2px solid black;
+  background-color: unset;
+  margin-right: 10px;
+}
+
+.card:hover .action button {
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+}
+
+.action .arsip:hover {
+  background-color: white;
+  color: black !important;
+}
+
+.action .bg-red:hover {
+  background-color: white;
+  color: black !important;
+}
+
+.empty {
+  margin-top: 10vh;
+  text-align: center;
+}
+
+.floatingButton {
+  position: fixed;
+  padding: 20px;
+  right: 50px;
+  bottom: 5vh;
+  border-radius: 50%;
+  border: 1px solid black;
+  color: white;
+}
+
+.archiveButton {
+  width: 1.5em;
+  height: 1.5em;
+  fill: black;
+}
+
+.floatingButton, .archiveButton {
+  transition: all .4s ease;
+  
+}
+
+.floatingButton:hover, .floatingButton:hover .archiveButton {
+  background-color: black;
+  fill: white;
+}
