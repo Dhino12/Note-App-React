@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import getData from './data/notes';
 import Footer from './components/footer/Footer';
 import Search from './components/header/Search';
 import ArchivePage from './pages/ArchivePage';
@@ -11,9 +10,9 @@ class NoteApp extends Component {
     super(props);
 
     this.state = {
-      notes: getData(),
       search: [],
       archives: [],
+      notesTmp: undefined,
     };
 
     this.onSearchNoteHandler = this.onSearchNoteHandler.bind(this);
@@ -27,8 +26,8 @@ class NoteApp extends Component {
       return;
     }
     let { search } = this.state;
-    const { notes, archives } = this.state;
-    search = notes.filter((note) => (
+    const { notesTmp, archives } = this.state;
+    search = notesTmp.filter((note) => (
       note.title.toLowerCase().includes(title.toLowerCase())
     ));
 
@@ -44,7 +43,8 @@ class NoteApp extends Component {
     this.setState((prevState) => ({
       archives: [...prevState.archives, archive],
     }));
-    this.setState({ notes });
+
+    this.setState({ notesTmp: notes });
   }
 
   onUnarchive(id) {
@@ -54,16 +54,14 @@ class NoteApp extends Component {
     notes.archive = false;
 
     this.setState((prevState) => ({
-      notes: [...prevState.notes, notes],
+      notesTmp: [...prevState.notesTmp, notes],
     }));
     this.setState({ archives });
   }
 
   render() {
-    const { archives, notes } = this.state;
-    // if (search.length !== 0) {
-    //   notes = search;
-    // }
+    const { archives, notesTmp } = this.state;
+
     return (
       <>
         <header>
@@ -74,7 +72,7 @@ class NoteApp extends Component {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<HomePage notes={notes} search={notes} onArchive={this.onArchiveNoteHandler} />} />
+            <Route path="/" element={<HomePage notesTmp={notesTmp} search={notesTmp} onArchive={this.onArchiveNoteHandler} />} />
             <Route path="/archive" element={<ArchivePage archives={archives} onUnarchive={this.onUnarchive} />} />
             <Route path="/detail/:id" />
           </Routes>

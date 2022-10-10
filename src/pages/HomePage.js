@@ -7,15 +7,18 @@ import EmptyNotes from '../components/empty/EmptyNotes';
 import Jumbotron from '../components/main/jumbotron';
 import ModalInput from '../components/main/modal-input';
 import NotesList from '../components/main/notes-list';
+import getData from '../data/notes';
 import filtering from '../utils/utils';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
+    const { notesTmp } = this.props;
     this.state = {
       showModal: false,
       archives: [],
+      notes: notesTmp || getData(),
     };
 
     this.onShowModal = this.onShowModal.bind(this);
@@ -56,11 +59,13 @@ class HomePage extends Component {
   }
 
   onArchiveNoteHandler(id) {
-    const { onArchive, notes } = this.props;
+    const { onArchive } = this.props;
+    const { notes } = this.state;
     const [dataFiltering, results] = filtering(notes, id);
     dataFiltering.archived = true;
 
     onArchive(dataFiltering, results);
+    this.setState({ notes: results });
   }
 
   onShowModal() {
@@ -72,8 +77,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { showModal } = this.state;
-    const { notes } = this.props;
+    const { showModal, notes } = this.state;
 
     return (
       <>
