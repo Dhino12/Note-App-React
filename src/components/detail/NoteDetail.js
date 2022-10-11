@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
+import { string } from 'prop-types';
 import React from 'react';
 
 function NoteDetail({
- id, title, body, createdAt,
+ title, body, createdAt,
 }) {
-    console.log(id);
     return (
         <div className="container">
             <article>
@@ -15,5 +15,11 @@ function NoteDetail({
         </div>
     );
 }
+
+NoteDetail.propTypes = {
+    title: string.isRequired,
+    body: string.isRequired,
+    createdAt: string.isRequired,
+};
 
 export default NoteDetail;

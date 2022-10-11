@@ -1,5 +1,8 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import { string, func, array } from 'prop-types';
 import NotesList from '../components/main/notes-list';
 import { searchNotes } from '../utils/utils';
 
@@ -26,5 +29,11 @@ class ArchivePage extends Component {
         );
     }
 }
+
+ArchivePage.propTypes = {
+    archives: array.isRequired,
+    search: string,
+    onUnarchive: func.isRequired,
+};
 
 export default ArchivePage;

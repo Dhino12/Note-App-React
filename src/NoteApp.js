@@ -61,6 +61,7 @@ class NoteApp extends Component {
             <Route path="/" element={<HomePage notesTmp={notesTmp} search={search} onArchive={this.onArchiveNoteHandler} />} />
             <Route path="/archive" element={<ArchivePage archives={archives} search={search} onUnarchive={this.onUnarchive} />} />
             <Route path="/detail/:id" element={<DetailPageWrapper />} />
+            <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
         </main>
         <Footer />

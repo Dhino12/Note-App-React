@@ -1,8 +1,11 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { BsArchive } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { string, func, array } from 'prop-types';
 import EmptyNotes from '../components/empty/EmptyNotes';
 import Jumbotron from '../components/main/jumbotron';
 import ModalInput from '../components/main/modal-input';
@@ -108,5 +111,11 @@ class HomePage extends Component {
     );
   }
 }
+
+HomePage.propTypes = {
+  notesTmp: array,
+  search: string,
+  onArchive: func.isRequired,
+};
 
 export default HomePage;
