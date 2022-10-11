@@ -1,20 +1,16 @@
-/* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
-/* eslint-disable react/prop-types */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
+import { func, object } from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NoteItem({
-  noteData,
-  onDelete,
-  onArchive,
-  onUnarchive,
+  noteData, onDelete, onArchive, onUnarchive,
 }) {
   const {
-    createdAt,
-    title,
-    body,
-    id,
+    createdAt, title, body, id,
   } = noteData;
 
   function confirmDelete() {
@@ -59,5 +55,12 @@ function NoteItem({
       </div>
   );
 }
+
+NoteItem.propTypes = {
+  noteData: object.isRequired,
+  onDelete: func.isRequired,
+  onArchive: func.isRequired,
+  onUnarchive: func,
+};
 
 export default NoteItem;

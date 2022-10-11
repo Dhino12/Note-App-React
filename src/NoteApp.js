@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import Footer from './components/footer/Footer';
-import Search from './components/header/Search';
+import SearchWrapper from './components/header/Search';
 import ArchivePage from './pages/ArchivePage';
 import DetailPageWrapper from './pages/DetailPage';
 import HomePage from './pages/HomePage';
@@ -54,7 +54,7 @@ class NoteApp extends Component {
           <Link to="/">
             <h1>Note App</h1>
           </Link>
-          <Search search={this.onSearchNoteHandler} />
+          <SearchWrapper search={this.onSearchNoteHandler} />
         </header>
         <main>
           <Routes>

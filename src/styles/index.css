@@ -60,6 +60,7 @@ button {
   font-family: 'barlow-medium';
 }
 
+/* header */
 header {
   width: 100%;
   background-color: black;
@@ -88,6 +89,7 @@ header h1 {
   border-radius: 5px;
   padding: 0 10px;
 }
+/* end-header */
 
 #jumbotron { 
   display: flex;
@@ -209,6 +211,7 @@ label {
 }
 /* End Modal */
 
+/* footer */
 footer {
   width: 100%;
   bottom: 0;
@@ -222,6 +225,7 @@ footer {
 footer p{
   margin-right: 20px;
 }
+/* end-footer */
 
 .content {
   display: flex; 
@@ -248,6 +252,13 @@ footer p{
 
 .card:hover a {
   color: white;
+  transition: .2s ease;
+}
+
+.card a:hover {
+  color: black;
+  -webkit-text-stroke: .5px;
+  -webkit-text-stroke-color: white;
 }
 
 .action {
@@ -313,11 +324,11 @@ footer p{
 
 /* detail */
 .container {
-  height: 64vh;
+  height: 70vh;
 }
 
 article {
   width: 80%;
-  margin: 20vh auto;
+  margin: 15vh auto;
   padding: 20px;
 }

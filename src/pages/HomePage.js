@@ -96,7 +96,7 @@ class HomePage extends Component {
         />
         <Jumbotron showModal={this.onShowModal} />
         {notes.length === 0 ? (
-          <EmptyNotes />
+          <EmptyNotes page="Catatan" />
         ) : (
             <NotesList
               notes={notes}
@@ -114,7 +114,7 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   notesTmp: array,
-  search: string,
+  search: string.isRequired,
   onArchive: func.isRequired,
 };
 

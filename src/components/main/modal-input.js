@@ -5,6 +5,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
+import { bool, func } from 'prop-types';
 import React, { Component } from 'react';
 
 class ModalInput extends Component {
@@ -108,5 +109,11 @@ class ModalInput extends Component {
     );
   }
 }
+
+ModalInput.propTypes = {
+  show: bool.isRequired,
+  closeModal: func.isRequired,
+  addNote: func.isRequired,
+};
 
 export default ModalInput;

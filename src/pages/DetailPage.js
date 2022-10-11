@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prefer-stateless-function */
+import { number } from 'prop-types';
 import React, { Component } from 'react';
 import { useParams } from 'react-router-dom';
 import NoteDetail from '../components/detail/NoteDetail';
@@ -27,5 +28,9 @@ class DetailPage extends Component {
         );
     }
 }
+
+DetailPage.propTypes = {
+    id: number.isRequired,
+};
 
 export default DetailPageWrapper;

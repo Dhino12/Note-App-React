@@ -1,4 +1,6 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
+import { array, func } from 'prop-types';
 import React from 'react';
 import NoteItem from './note-item';
 
@@ -23,5 +25,12 @@ function NotesList({
     </>
   );
 }
+
+NotesList.propTypes = {
+  notes: array.isRequired,
+  onDelete: func.isRequired,
+  onArchive: func.isRequired,
+  onUnarchive: func,
+};
 
 export default NotesList;
