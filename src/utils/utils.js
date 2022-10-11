@@ -7,4 +7,12 @@ function filtering(datas, id) {
     return [dataFiltering, results];
 }
 
-export default filtering;
+function searchNotes(datas, title) {
+    const searchData = datas.filter((note) => (
+        note.title.toLowerCase().includes(title.toLowerCase())
+    ));
+
+    return searchData;
+}
+
+export { filtering, searchNotes };

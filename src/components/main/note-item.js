@@ -2,6 +2,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function NoteItem({
   noteData,
@@ -23,37 +24,39 @@ function NoteItem({
   }
 
   return (
-    <div className="card">
-      <p>{createdAt}</p>
-      <h1>{title}</h1>
-      <p>{body}</p>
-      <div className="action">
-        <button
-          type="button"
-          className="bg-red"
-          onClick={() => { confirmDelete(); }}
-        >
-          Delete
-        </button>
-        {onUnarchive ? (
+      <div className="card">
+        <p>{createdAt}</p>
+        <Link to={`/detail/${id}`}>
+          <h1>{title}</h1>
+        </Link>
+        <p>{body}</p>
+        <div className="action">
           <button
             type="button"
-            className="arsip"
-            onClick={() => { onUnarchive(id); }}
+            className="bg-red"
+            onClick={() => { confirmDelete(); }}
           >
-            Unarchive
+            Delete
           </button>
-        ) : (
-          <button
-            type="button"
-            className="arsip"
-            onClick={() => { onArchive(id); }}
-          >
-            Arsipkan
-          </button>
-        )}
+          {onUnarchive ? (
+            <button
+              type="button"
+              className="arsip"
+              onClick={() => { onUnarchive(id); }}
+            >
+              Unarchive
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="arsip"
+              onClick={() => { onArchive(id); }}
+            >
+              Arsipkan
+            </button>
+          )}
+        </div>
       </div>
-    </div>
   );
 }
 

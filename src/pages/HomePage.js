@@ -7,8 +7,8 @@ import EmptyNotes from '../components/empty/EmptyNotes';
 import Jumbotron from '../components/main/jumbotron';
 import ModalInput from '../components/main/modal-input';
 import NotesList from '../components/main/notes-list';
-import getData from '../data/notes';
-import filtering from '../utils/utils';
+import { getData } from '../data/notes';
+import { filtering, searchNotes } from '../utils/utils';
 
 class HomePage extends Component {
   constructor(props) {
@@ -77,7 +77,12 @@ class HomePage extends Component {
   }
 
   render() {
-    const { showModal, notes } = this.state;
+    const { showModal } = this.state;
+    let { notes } = this.state;
+    const { search } = this.props;
+    if (search.length !== 0) {
+      notes = searchNotes(notes, search);
+    }
 
     return (
       <>

@@ -3,6 +3,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import Footer from './components/footer/Footer';
 import Search from './components/header/Search';
 import ArchivePage from './pages/ArchivePage';
+import DetailPageWrapper from './pages/DetailPage';
 import HomePage from './pages/HomePage';
 
 class NoteApp extends Component {
@@ -10,7 +11,7 @@ class NoteApp extends Component {
     super(props);
 
     this.state = {
-      search: [],
+      search: '',
       archives: [],
       notesTmp: undefined,
     };
@@ -21,22 +22,7 @@ class NoteApp extends Component {
   }
 
   onSearchNoteHandler({ title }) {
-    if (title.length === 0) {
-      this.setState({ search: [] });
-      return;
-    }
-    let { search } = this.state;
-    const { notesTmp, archives } = this.state;
-    search = notesTmp.filter((note) => (
-      note.title.toLowerCase().includes(title.toLowerCase())
-    ));
-
-    if (archives.length !== 0) {
-      search = archives.filter((note) => (
-        note.title.toLowerCase().includes(title.toLowerCase())
-      ));
-    }
-    this.setState({ search });
+    this.setState({ search: title });
   }
 
   onArchiveNoteHandler(archive, notes) {
@@ -60,7 +46,7 @@ class NoteApp extends Component {
   }
 
   render() {
-    const { archives, notesTmp } = this.state;
+    const { archives, search, notesTmp } = this.state;
 
     return (
       <>
@@ -72,9 +58,9 @@ class NoteApp extends Component {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<HomePage notesTmp={notesTmp} search={notesTmp} onArchive={this.onArchiveNoteHandler} />} />
-            <Route path="/archive" element={<ArchivePage archives={archives} onUnarchive={this.onUnarchive} />} />
-            <Route path="/detail/:id" />
+            <Route path="/" element={<HomePage notesTmp={notesTmp} search={search} onArchive={this.onArchiveNoteHandler} />} />
+            <Route path="/archive" element={<ArchivePage archives={archives} search={search} onUnarchive={this.onUnarchive} />} />
+            <Route path="/detail/:id" element={<DetailPageWrapper />} />
           </Routes>
         </main>
         <Footer />

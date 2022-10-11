@@ -42,4 +42,13 @@ const getData = () => [
       archived: false,
     },
 ];
-export default getData;
+
+function getNoteDetail(id) {
+  if (!id) return null;
+
+  const filterNotes = getData().filter((note) => note.id === id);
+  if (!filterNotes.length) return null;
+
+  return filterNotes[0];
+}
+export { getData, getNoteDetail };

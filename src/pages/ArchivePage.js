@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import NotesList from '../components/main/notes-list';
+import { searchNotes } from '../utils/utils';
 
 class ArchivePage extends Component {
     constructor(props) {
@@ -8,7 +10,12 @@ class ArchivePage extends Component {
 
     render() {
         // eslint-disable-next-line react/prop-types
-        const { archives, onUnarchive } = this.props;
+        const { onUnarchive, search } = this.props;
+        let { archives } = this.props;
+
+        if (search.length !== 0) {
+            archives = searchNotes(archives, search);
+        }
 
         return (
             <NotesList
