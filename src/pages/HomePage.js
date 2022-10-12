@@ -1,17 +1,15 @@
-/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/prop-types */
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import { BsArchive } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { string, func, array } from 'prop-types';
+import PropTypes from 'prop-types';
 import EmptyNotes from '../components/empty/EmptyNotes';
 import Jumbotron from '../components/main/jumbotron';
 import ModalInput from '../components/main/modal-input';
 import NotesList from '../components/main/notes-list';
 import { getData } from '../data/notes';
-import { filtering, searchNotes } from '../utils/utils';
+import { deleteNotes, filtering, searchNotes } from '../utils/utils';
 
 class HomePage extends Component {
   constructor(props) {
@@ -20,7 +18,6 @@ class HomePage extends Component {
     const { notesTmp } = this.props;
     this.state = {
       showModal: false,
-      archives: [],
       notes: notesTmp || getData(),
     };
 
@@ -52,13 +49,9 @@ class HomePage extends Component {
   }
 
   onDeleteNote(id) {
-    let { notes, archives } = this.state;
-    notes = notes.filter((note) => note.id !== id);
+    let { notes } = this.state;
+    notes = deleteNotes(notes, id);
     this.setState({ notes });
-    if (archives.length !== 0) {
-      archives = archives.filter((note) => note.id !== id);
-      this.setState({ archives });
-    }
   }
 
   onArchiveNoteHandler(id) {
@@ -113,9 +106,9 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  notesTmp: array,
-  search: string.isRequired,
-  onArchive: func.isRequired,
+  notesTmp: PropTypes.array,
+  search: PropTypes.string.isRequired,
+  onArchive: PropTypes.func.isRequired,
 };
 
 export default HomePage;

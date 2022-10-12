@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import { React } from 'react';
 
 function Jumbotron({ showModal }) {
@@ -25,7 +25,7 @@ function Jumbotron({ showModal }) {
 }
 
 Jumbotron.propTypes = {
-  showModal: func.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
 
 export default Jumbotron;

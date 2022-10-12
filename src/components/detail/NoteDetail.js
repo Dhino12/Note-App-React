@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { string } from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 function NoteDetail({
@@ -17,9 +17,9 @@ function NoteDetail({
 }
 
 NoteDetail.propTypes = {
-    title: string.isRequired,
-    body: string.isRequired,
-    createdAt: string.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
 };
 
 export default NoteDetail;

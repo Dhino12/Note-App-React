@@ -1,11 +1,8 @@
 /* eslint-disable no-alert */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/no-unused-class-component-methods */
-/* eslint-disable react/no-unused-state */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/prop-types */
-import { bool, func } from 'prop-types';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class ModalInput extends Component {
@@ -44,7 +41,7 @@ class ModalInput extends Component {
 
   onSubmitEventHandler(event) {
     event.preventDefault();
-    const { addNote } = this.props;
+    const { addNote, closeModal } = this.props;
     addNote(this.state);
     alert('Data berhasil ditambahkan');
 
@@ -56,6 +53,8 @@ class ModalInput extends Component {
     this.setState(() => ({
       body: '',
     }));
+
+    closeModal();
   }
 
   render() {
@@ -111,9 +110,9 @@ class ModalInput extends Component {
 }
 
 ModalInput.propTypes = {
-  show: bool.isRequired,
-  closeModal: func.isRequired,
-  addNote: func.isRequired,
+  show: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  addNote: PropTypes.func.isRequired,
 };
 
 export default ModalInput;

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
-import { func, string } from 'prop-types';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -55,13 +55,13 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-    onSearch: func.isRequired,
-    search: func.isRequired,
-    keyword: string.isRequired,
+    onSearch: PropTypes.func.isRequired,
+    search: PropTypes.func.isRequired,
+    keyword: PropTypes.string.isRequired,
 };
 
 SearchWrapper.prototype = {
-    search: func.isRequired,
+    search: PropTypes.func,
 };
 
 export default SearchWrapper;

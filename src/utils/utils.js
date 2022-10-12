@@ -8,11 +8,23 @@ function filtering(datas, id) {
 }
 
 function searchNotes(datas, title) {
-    const searchData = datas.filter((note) => (
+    return datas.filter((note) => (
         note.title.toLowerCase().includes(title.toLowerCase())
     ));
-
-    return searchData;
 }
 
-export { filtering, searchNotes };
+function deleteNotes(datas, id) {
+    return datas.filter((note) => note.id !== id);
+}
+
+function unArchive(datas, id) {
+    const [notes] = datas.filter((archive) => archive.id === id);
+    notes.archived = false;
+    const archivesData = datas.filter((archive) => archive.id !== id);
+
+    return [notes, archivesData];
+}
+
+export {
+    filtering, searchNotes, deleteNotes, unArchive,
+};

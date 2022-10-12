@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
+import NotFound from './components/empty/NotFound';
 import Footer from './components/footer/Footer';
 import SearchWrapper from './components/header/Search';
 import ArchivePage from './pages/ArchivePage';
@@ -33,15 +34,13 @@ class NoteApp extends Component {
     this.setState({ notesTmp: notes });
   }
 
-  onUnarchive(id) {
-    let { archives } = this.state;
-    const [notes] = archives.filter((archive) => archive.id === id);
-    archives = archives.filter((archive) => archive.id !== id);
-    notes.archive = false;
+  onUnarchive(notes, archives) {
+    if (notes) {
+      this.setState((prevState) => ({
+        notesTmp: [...prevState.notesTmp, notes],
+      }));
+    }
 
-    this.setState((prevState) => ({
-      notesTmp: [...prevState.notesTmp, notes],
-    }));
     this.setState({ archives });
   }
 
@@ -61,7 +60,7 @@ class NoteApp extends Component {
             <Route path="/" element={<HomePage notesTmp={notesTmp} search={search} onArchive={this.onArchiveNoteHandler} />} />
             <Route path="/archive" element={<ArchivePage archives={archives} search={search} onUnarchive={this.onUnarchive} />} />
             <Route path="/detail/:id" element={<DetailPageWrapper />} />
-            <Route path="*" element={<h1>Not Found</h1>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

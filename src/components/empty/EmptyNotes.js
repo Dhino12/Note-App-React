@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import { string } from 'prop-types';
-
-/* eslint-disable react/react-in-jsx-scope */
 function EmptyNotes({ page }) {
     return (
         <div className="empty">
@@ -16,7 +15,7 @@ function EmptyNotes({ page }) {
 }
 
 EmptyNotes.propTypes = {
-    page: string.isRequired,
+    page: PropTypes.string.isRequired,
 };
 
 export default EmptyNotes;
