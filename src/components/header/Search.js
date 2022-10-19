@@ -60,8 +60,8 @@ Search.propTypes = {
     keyword: PropTypes.string.isRequired,
 };
 
-SearchWrapper.prototype = {
-    search: PropTypes.func,
+SearchWrapper.propTypes = {
+    search: PropTypes.func.isRequired,
 };
 
 export default SearchWrapper;
