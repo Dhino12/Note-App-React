@@ -3,9 +3,12 @@ import { Link, Route, Routes } from 'react-router-dom';
 import NotFound from './components/empty/NotFound';
 import Footer from './components/footer/Footer';
 import SearchWrapper from './components/header/Search';
+import { getUserLogged, putAccessToken } from './data/api';
 import ArchivePage from './pages/ArchivePage';
 import DetailPageWrapper from './pages/DetailPage';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 class NoteApp extends Component {
   constructor(props) {
@@ -13,6 +16,8 @@ class NoteApp extends Component {
 
     this.state = {
       search: '',
+      authedUser: null,
+      initializing: false,
       archives: [],
       notesTmp: undefined,
     };
@@ -20,6 +25,34 @@ class NoteApp extends Component {
     this.onSearchNoteHandler = this.onSearchNoteHandler.bind(this);
     this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
     this.onUnarchive = this.onUnarchive.bind(this);
+    this.onLoginSuccess = this.onLoginSuccess.bind(this);
+    this.onLogout = this.onLogout.bind(this);
+  }
+
+  async componentDidMount() {
+    const { data } = await getUserLogged();
+
+    this.setState(() => ({
+      authedUser: data,
+      initializing: false,
+    }));
+  }
+
+  async onLoginSuccess({ accessToken }) {
+    putAccessToken(accessToken);
+    const { data } = await getUserLogged();
+
+    this.setState(() => ({
+        authedUser: data,
+    }));
+  }
+
+  onLogout() {
+    this.setState(() => ({
+      authedUser: null,
+    }));
+
+    putAccessToken('');
   }
 
   onSearchNoteHandler({ title }) {
@@ -45,7 +78,30 @@ class NoteApp extends Component {
   }
 
   render() {
-    const { archives, search, notesTmp } = this.state;
+    const {
+      archives, search, notesTmp, initializing, authedUser,
+    } = this.state;
+
+    if (initializing) {
+      return null;
+    }
+
+    if (authedUser === null) {
+      return (
+        <>
+          <header>
+            <h1>Note App</h1>
+          </header>
+          <main>
+            <Routes>
+              <Route path="/*" element={<LoginPage loginSuccess={this.onLoginSuccess} />} />
+              <Route path="/register" element={<RegisterPage />} />
+            </Routes>
+          </main>
+          <Footer />
+        </>
+      );
+    }
 
     return (
       <>
@@ -53,7 +109,10 @@ class NoteApp extends Component {
           <Link to="/">
             <h1>Note App</h1>
           </Link>
-          <SearchWrapper search={this.onSearchNoteHandler} />
+          <div className="right">
+            <SearchWrapper search={this.onSearchNoteHandler} />
+            <button type="button" className="logout" onClick={this.onLogout}> Logout </button>
+          </div>
         </header>
         <main>
           <Routes>

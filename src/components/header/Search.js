@@ -6,7 +6,9 @@ import { useSearchParams } from 'react-router-dom';
 
 function SearchWrapper({ search }) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const titleSearch = searchParams.get('titleSearch');
+    let titleSearch = searchParams.get('titleSearch');
+
+    if (titleSearch === null) titleSearch = '';
 
     function changeSearchParams({ title }) {
         setSearchParams({ titleSearch: title });

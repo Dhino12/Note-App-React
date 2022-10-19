@@ -12,19 +12,38 @@
 
 @media only screen and (max-width: 715px) {
     header {
-        padding-left: 5vh;
         justify-content: space-between;
+        text-align: center;
         flex-direction: column;
     }
 
     #search {
+        width: 80%;
         padding: 2vh 2vh;
         margin-top: 3vh;
-        margin-right: 10vh;
     }
 
     .card {
         width: 100%;
         margin: 20px 10px;
+    }
+
+    .container-login {
+        padding: 5rem 0 0 0;
+
+    }
+
+    .form-wrapper {
+        width: 80%;
+    }
+
+    footer {
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    footer p {
+        text-align: center;
+        margin: 5px 0;
     }
 }
