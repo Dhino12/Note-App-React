@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import NoteContext from './context/NoteContext';
 import ToggleTheme from './components/header/ToggleTheme';
+import ToggleLanguage from './components/header/ToggleLanguage';
 
 class NoteApp extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class NoteApp extends Component {
       initializing: true,
       notesTmp: undefined,
       theme: localStorage.getItem('theme') || 'light',
+      language: localStorage.getItem('language') || 'ID',
       toggleTheme: () => {
         this.setState((prevState) => {
           const newTheme = prevState.theme === 'light' ? 'dark' : 'light';
@@ -30,6 +32,16 @@ class NoteApp extends Component {
           localStorage.setItem('theme', newTheme);
           return {
             theme: newTheme,
+          };
+        });
+      },
+      toggleLanguage: () => {
+        this.setState((prevState) => {
+          const newLanguage = prevState.language === 'ID' ? 'EN' : 'ID';
+
+          localStorage.setItem('language', newLanguage);
+          return {
+            language: newLanguage,
           };
         });
       },
@@ -93,9 +105,12 @@ class NoteApp extends Component {
 
     if (authedUser === null) {
       return (
-        <>
+        <NoteContext.Provider value={this.state}>
           <header>
             <h1>Note App</h1>
+            <div className="right">
+              <ToggleTheme />
+            </div>
           </header>
           <main>
             <Routes>
@@ -104,7 +119,7 @@ class NoteApp extends Component {
             </Routes>
           </main>
           <Footer />
-        </>
+        </NoteContext.Provider>
       );
     }
 
@@ -116,6 +131,7 @@ class NoteApp extends Component {
           </Link>
           <div className="right">
             <ToggleTheme />
+            <ToggleLanguage />
             <SearchWrapper search={this.onSearchNoteHandler} />
             <button type="button" className="logout" onClick={this.onLogout}> Logout </button>
           </div>

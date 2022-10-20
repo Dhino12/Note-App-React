@@ -1,4 +1,5 @@
 html {
+  background-color: #e3e3e3;
   transition: .8s ease;
 }
 
@@ -34,6 +35,15 @@ body {
   border-color: white!important;
   color: white;
   fill: white;
+}
+
+[data-theme='dark'] .form-wrapper {
+  background-color: #62626239;
+}
+
+[data-theme='dark'] .form input {
+  background-color: unset;
+  color: white;
 }
 
 code {
@@ -142,6 +152,20 @@ header h1 {
   top: 10px;
 }
 
+.toggle-language {
+  padding: 10px;
+  margin-left: 10px;
+  background-color: unset;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: .2s ease;
+}
+
+.toggle-language:hover {
+  border: 1px solid white;
+}
+
 .dark-mode:hover .icon-outline-dark {
   stroke: white;
   cursor: pointer;
@@ -231,6 +255,15 @@ header h1 {
 
 .form button[type="submit"] {
   width: 80%;
+}
+
+.border-red {
+  border: 2px solid red;
+}
+
+input:focus .border-red {
+  border: 2px solid red;
+
 }
 
 .form button {

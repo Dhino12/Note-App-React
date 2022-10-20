@@ -9,9 +9,9 @@ function ToggleTheme() {
                     <button type="button" className="dark-mode" onClick={toggleTheme}>
                         {' '}
                         { theme === 'light' ? (
-                            <MdLightMode className="icon-outline-dark" />
-                        ) : (
                             <MdOutlineDarkMode className="icon-outline-dark" />
+                        ) : (
+                            <MdLightMode className="icon-outline-dark" />
                         ) }
                         {' '}
                     </button>

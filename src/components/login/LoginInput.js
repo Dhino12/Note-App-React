@@ -41,7 +41,9 @@ function LoginInput({ login }) {
                 <input type="password" id="password" placeholder="isikan password" value={password} onChange={onPasswordChangeHandler} />
                 <div className="button-col">
                     <button type="submit">Login</button>
-                    <button type="button">Register</button>
+                    <Link to="/register">
+                        <button type="button">Register</button>
+                    </Link>
                 </div>
             </form>
             <p>

@@ -7,6 +7,7 @@ function RegisterInput({ register }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [validPassword, setValidPassword] = useState('');
 
     function onNameChangeHandler(event) {
         setName(event.target.value);
@@ -20,14 +21,22 @@ function RegisterInput({ register }) {
         setPassword(event.target.value);
     }
 
+    function onValidatePasswordChangeHandler(event) {
+        setValidPassword(event.target.value);
+    }
+
     function onSubmitHandler(event) {
         event.preventDefault();
 
-        register({
-            name,
-            email,
-            password,
-        });
+        if (validPassword === password) {
+            register({
+                name,
+                email,
+                password,
+            });
+        }
+
+        alert('Password kamu belum benar');
     }
 
     return (
@@ -50,6 +59,18 @@ function RegisterInput({ register }) {
                     <span className="red">*</span>
                 </label>
                 <input type="password" id="password" placeholder="isikan password" value={password} onChange={onPasswordChangeHandler} />
+                <label htmlFor="password">
+                    Validate Password :
+                    <span className="red">*</span>
+                </label>
+                <input
+                  type="password"
+                  className={password.includes(validPassword) ? '' : 'border-red'}
+                  id="password"
+                  placeholder="isikan kembali password"
+                  value={validPassword}
+                  onChange={onValidatePasswordChangeHandler}
+                />
                 <div className="button-col">
                     <button type="submit">Register</button>
                     <Link to="/login"><button type="button">Login</button></Link>

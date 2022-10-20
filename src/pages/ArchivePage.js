@@ -5,6 +5,7 @@ import NotesList from '../components/main/notes-list';
 import { filtering, searchNotes } from '../utils/utils';
 import EmptyNotes from '../components/empty/EmptyNotes';
 import { deleteNote, getArchiveNote, unArchive } from '../data/api';
+import { closeLoading, Loading } from '../components/loading/Loading';
 
 class ArchivePage extends Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class ArchivePage extends Component {
     }
 
     async componentDidMount() {
+        Loading();
         const { data } = await getArchiveNote();
         this.setState({ archives: data });
     }
@@ -54,6 +56,7 @@ class ArchivePage extends Component {
             archives = searchNotes(archives, search);
         }
 
+        closeLoading();
         return (
             <NotesList
               notes={archives}

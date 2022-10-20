@@ -13,6 +13,7 @@ import { filtering, searchNotes } from '../utils/utils';
 import {
   addNote, deleteNote, getNotes, archiveNote,
 } from '../data/api';
+import { closeLoading, Loading } from '../components/loading/Loading';
 
 class HomePage extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class HomePage extends Component {
   }
 
   async componentDidMount() {
+    Loading();
     const { data } = await getNotes();
 
     this.setState({ notes: data });
@@ -79,6 +81,10 @@ class HomePage extends Component {
     const { search } = this.props;
     if (search.length !== 0) {
       notes = searchNotes(notes, search);
+    }
+
+    if (notes !== undefined) {
+      closeLoading();
     }
 
     return (
