@@ -3,9 +3,9 @@ import { Link, Route, Routes } from 'react-router-dom';
 import NotFound from './components/empty/NotFound';
 import Footer from './components/footer/Footer';
 import SearchWrapper from './components/header/Search';
-import { getUserLogged, putAccessToken } from './data/api';
+import { getNotes, getUserLogged, putAccessToken } from './data/api';
 import ArchivePage from './pages/ArchivePage';
-import DetailPageWrapper from './pages/DetailPage';
+import DetailPage from './pages/DetailPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -18,23 +18,22 @@ class NoteApp extends Component {
       search: '',
       authedUser: null,
       initializing: false,
-      archives: [],
       notesTmp: undefined,
     };
 
     this.onSearchNoteHandler = this.onSearchNoteHandler.bind(this);
-    this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
-    this.onUnarchive = this.onUnarchive.bind(this);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLogout = this.onLogout.bind(this);
   }
 
   async componentDidMount() {
     const { data } = await getUserLogged();
+    const notes = await getNotes();
 
     this.setState(() => ({
       authedUser: data,
       initializing: false,
+      notesTmp: notes.data,
     }));
   }
 
@@ -59,27 +58,9 @@ class NoteApp extends Component {
     this.setState({ search: title });
   }
 
-  onArchiveNoteHandler(archive, notes) {
-    this.setState((prevState) => ({
-      archives: [...prevState.archives, archive],
-    }));
-
-    this.setState({ notesTmp: notes });
-  }
-
-  onUnarchive(notes, archives) {
-    if (notes) {
-      this.setState((prevState) => ({
-        notesTmp: [...prevState.notesTmp, notes],
-      }));
-    }
-
-    this.setState({ archives });
-  }
-
   render() {
     const {
-      archives, search, notesTmp, initializing, authedUser,
+      search, notesTmp, initializing, authedUser,
     } = this.state;
 
     if (initializing) {
@@ -116,9 +97,9 @@ class NoteApp extends Component {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<HomePage notesTmp={notesTmp} search={search} onArchive={this.onArchiveNoteHandler} />} />
-            <Route path="/archive" element={<ArchivePage archives={archives} search={search} onUnarchive={this.onUnarchive} />} />
-            <Route path="/detail/:id" element={<DetailPageWrapper />} />
+            <Route path="/" element={<HomePage notesTmp={notesTmp} search={search} />} />
+            <Route path="/archive" element={<ArchivePage search={search} />} />
+            <Route path="/detail/:id" element={<DetailPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

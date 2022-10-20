@@ -1,34 +1,27 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NoteDetail from '../components/detail/NoteDetail';
-import { getNoteDetail } from '../data/notes';
+import { getDetailNote } from '../data/api';
 
-function DetailPageWrapper() {
+function DetailPage() {
+    const [note, setNote] = useState({});
     const { id } = useParams();
 
-    return <DetailPage id={Number(id)} />;
-}
+    useEffect(() => {
+        async function detailNote() {
+            const { data } = await getDetailNote(id);
+            setNote(data);
+        }
 
-class DetailPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            note: getNoteDetail(props.id),
-        };
-    }
+        detailNote();
+    }, [id]);
 
-    render() {
-        const { note } = this.state;
+    if (note.title !== undefined) {
         return (
             <NoteDetail {...note} />
         );
     }
 }
 
-DetailPage.propTypes = {
-    id: PropTypes.number.isRequired,
-};
-
-export default DetailPageWrapper;
+export default DetailPage;

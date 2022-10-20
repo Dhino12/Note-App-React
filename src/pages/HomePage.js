@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
@@ -8,8 +9,10 @@ import EmptyNotes from '../components/empty/EmptyNotes';
 import Jumbotron from '../components/main/jumbotron';
 import ModalInput from '../components/main/modal-input';
 import NotesList from '../components/main/notes-list';
-import { getData } from '../data/notes';
-import { deleteNotes, filtering, searchNotes } from '../utils/utils';
+import { filtering, searchNotes } from '../utils/utils';
+import {
+  addNote, deleteNote, getNotes, archiveNote,
+} from '../data/api';
 
 class HomePage extends Component {
   constructor(props) {
@@ -18,7 +21,7 @@ class HomePage extends Component {
     const { notesTmp } = this.props;
     this.state = {
       showModal: false,
-      notes: notesTmp || getData(),
+      notes: notesTmp,
     };
 
     this.onShowModal = this.onShowModal.bind(this);
@@ -28,39 +31,37 @@ class HomePage extends Component {
     this.onArchiveNoteHandler = this.onArchiveNoteHandler.bind(this);
   }
 
-  onAddNoteHandler({
+  async componentDidMount() {
+    const { data } = await getNotes();
+
+    this.setState({ notes: data });
+  }
+
+  async onAddNoteHandler({
     title,
     body,
-    createdAt,
-    archived,
   }) {
+    const { data } = await addNote({ title, body });
     this.setState((prevState) => ({
       notes: [
         ...prevState.notes,
-        {
-          id: +new Date(),
-          title,
-          body,
-          createdAt,
-          archived,
-        },
+        data,
       ],
     }));
   }
 
-  onDeleteNote(id) {
-    let { notes } = this.state;
-    notes = deleteNotes(notes, id);
-    this.setState({ notes });
+  async onDeleteNote(id) {
+    await deleteNote(id);
+
+    const { data } = await getNotes();
+    this.setState({ notes: data });
   }
 
-  onArchiveNoteHandler(id) {
-    const { onArchive } = this.props;
-    const { notes } = this.state;
-    const [dataFiltering, results] = filtering(notes, id);
-    dataFiltering.archived = true;
+  async onArchiveNoteHandler(id) {
+    await archiveNote(id);
 
-    onArchive(dataFiltering, results);
+    const { notes } = this.state;
+    const results = filtering(notes, id);
     this.setState({ notes: results });
   }
 
@@ -79,6 +80,8 @@ class HomePage extends Component {
     if (search.length !== 0) {
       notes = searchNotes(notes, search);
     }
+
+    // console.log(notes);
 
     return (
       <>
@@ -108,7 +111,6 @@ class HomePage extends Component {
 HomePage.propTypes = {
   notesTmp: PropTypes.array,
   search: PropTypes.string.isRequired,
-  onArchive: PropTypes.func.isRequired,
 };
 
 export default HomePage;

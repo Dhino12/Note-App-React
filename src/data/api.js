@@ -51,7 +51,6 @@ async function register({ name, email, password }) {
     });
 
     const responseJson = await response.json();
-    console.log(responseJson);
 
     if (responseJson.status !== 'success') {
         alert(responseJson.message);
@@ -88,7 +87,7 @@ async function addNote({ title, body }) {
         return { error: true };
     }
 
-    return { error: false };
+    return { error: false, data: responseJson.data };
 }
 
 async function getNotes() {
@@ -98,6 +97,18 @@ async function getNotes() {
     if (responseJson.status !== 'success') {
         alert(responseJson.message);
         return { error: true, data: [] };
+    }
+
+    return { error: false, data: responseJson.data };
+}
+
+async function getDetailNote(id) {
+    const response = await fetchWithToken(`${BASE_URL}/notes/${id}`);
+    const responseJson = await response.json();
+
+    if (responseJson.status !== 'success') {
+        alert(responseJson.message);
+        return { error: true, data: {} };
     }
 
     return { error: false, data: responseJson.data };
@@ -117,6 +128,45 @@ async function deleteNote(id) {
     return { error: false };
 }
 
+async function archiveNote(id) {
+    const response = await fetchWithToken(`${BASE_URL}/notes/${id}/archive`, {
+        method: 'POST',
+    });
+    const responseJson = await response.json();
+
+    if (responseJson.status !== 'success') {
+        return { error: true };
+    }
+
+    return { error: false, message: responseJson.message };
+}
+
+async function getArchiveNote() {
+    const response = await fetchWithToken(`${BASE_URL}/notes/archived`);
+    const responseJson = await response.json();
+
+    if (responseJson.status !== 'success') {
+        alert(responseJson.message);
+        return { error: true };
+    }
+
+    return { error: false, data: responseJson.data };
+}
+
+async function unArchive(id) {
+    const response = await fetchWithToken(`${BASE_URL}/notes/${id}/unarchive`, {
+        method: 'POST',
+    });
+    const responseJson = await response.json();
+
+    if (responseJson.status !== 'success') {
+        alert(responseJson.message);
+        return { error: true };
+    }
+
+    return { error: false, data: responseJson.data };
+}
+
 export {
     getAccessToken,
     putAccessToken,
@@ -125,5 +175,9 @@ export {
     getUserLogged,
     addNote,
     getNotes,
+    getDetailNote,
     deleteNote,
+    archiveNote,
+    getArchiveNote,
+    unArchive,
 };

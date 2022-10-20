@@ -1,10 +1,6 @@
 // eslint-disable-next-line react/no-unused-class-component-methods
 function filtering(datas, id) {
-    let results = null;
-    const [dataFiltering] = datas.filter((note) => note.id === id);
-    results = datas.filter((note) => note.id !== id);
-
-    return [dataFiltering, results];
+    return datas.filter((note) => note.id !== id);
 }
 
 function searchNotes(datas, title) {
@@ -17,14 +13,10 @@ function deleteNotes(datas, id) {
     return datas.filter((note) => note.id !== id);
 }
 
-function unArchive(datas, id) {
-    const [notes] = datas.filter((archive) => archive.id === id);
-    notes.archived = false;
-    const archivesData = datas.filter((archive) => archive.id !== id);
-
-    return [notes, archivesData];
+function unArchiveFilter(datas, id) {
+    return datas.filter((archive) => archive.id !== id);
 }
 
 export {
-    filtering, searchNotes, deleteNotes, unArchive,
+    filtering, searchNotes, deleteNotes, unArchiveFilter,
 };
