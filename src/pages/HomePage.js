@@ -81,8 +81,6 @@ class HomePage extends Component {
       notes = searchNotes(notes, search);
     }
 
-    // console.log(notes);
-
     return (
       <>
         <ModalInput

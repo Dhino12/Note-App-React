@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
+import { MdOutlineDarkMode } from 'react-icons/md';
 import NotFound from './components/empty/NotFound';
 import Footer from './components/footer/Footer';
 import SearchWrapper from './components/header/Search';
@@ -17,7 +18,7 @@ class NoteApp extends Component {
     this.state = {
       search: '',
       authedUser: null,
-      initializing: false,
+      initializing: true,
       notesTmp: undefined,
     };
 
@@ -91,6 +92,11 @@ class NoteApp extends Component {
             <h1>Note App</h1>
           </Link>
           <div className="right">
+            <button type="button" className="dark-mode" onClick={this.onLogout}>
+              {' '}
+              <MdOutlineDarkMode className="icon-outline-dark" />
+              {' '}
+            </button>
             <SearchWrapper search={this.onSearchNoteHandler} />
             <button type="button" className="logout" onClick={this.onLogout}> Logout </button>
           </div>

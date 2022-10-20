@@ -105,7 +105,7 @@ header h1 {
 
 #search {
   width: 20vw;
-  margin-right: 2vh;
+  margin: 0 2vh;
   background-color: #f4f4f4;
   border-radius: 5px;
   padding: 10px;
@@ -113,6 +113,26 @@ header h1 {
 
 .logout {
   padding: 10px;
+}
+
+.dark-mode{
+  padding: 0;
+  background-color: unset;
+  position: relative;
+  top: 10px;
+}
+
+.dark-mode:hover .icon-outline-dark {
+  stroke: white;
+  cursor: pointer;
+  stroke-linecap: round;
+  stroke-width: 1;
+}
+
+.icon-outline-dark {
+  fill: white;
+  width: 2rem;
+  height: auto;
 }
 /* end-header */
 
