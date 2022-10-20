@@ -1,6 +1,6 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import { MdOutlineDarkMode } from 'react-icons/md';
 import NotFound from './components/empty/NotFound';
 import Footer from './components/footer/Footer';
 import SearchWrapper from './components/header/Search';
@@ -10,6 +10,8 @@ import DetailPage from './pages/DetailPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import NoteContext from './context/NoteContext';
+import ToggleTheme from './components/header/ToggleTheme';
 
 class NoteApp extends Component {
   constructor(props) {
@@ -20,6 +22,17 @@ class NoteApp extends Component {
       authedUser: null,
       initializing: true,
       notesTmp: undefined,
+      theme: localStorage.getItem('theme') || 'light',
+      toggleTheme: () => {
+        this.setState((prevState) => {
+          const newTheme = prevState.theme === 'light' ? 'dark' : 'light';
+
+          localStorage.setItem('theme', newTheme);
+          return {
+            theme: newTheme,
+          };
+        });
+      },
     };
 
     this.onSearchNoteHandler = this.onSearchNoteHandler.bind(this);
@@ -29,6 +42,7 @@ class NoteApp extends Component {
 
   async componentDidMount() {
     const { data } = await getUserLogged();
+    const { theme } = this.state;
     const notes = await getNotes();
 
     this.setState(() => ({
@@ -36,6 +50,15 @@ class NoteApp extends Component {
       initializing: false,
       notesTmp: notes.data,
     }));
+
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { theme } = this.state;
+    if (prevState.theme !== theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
   }
 
   async onLoginSuccess({ accessToken }) {
@@ -86,17 +109,13 @@ class NoteApp extends Component {
     }
 
     return (
-      <>
+      <NoteContext.Provider value={this.state}>
         <header>
           <Link to="/">
             <h1>Note App</h1>
           </Link>
           <div className="right">
-            <button type="button" className="dark-mode" onClick={this.onLogout}>
-              {' '}
-              <MdOutlineDarkMode className="icon-outline-dark" />
-              {' '}
-            </button>
+            <ToggleTheme />
             <SearchWrapper search={this.onSearchNoteHandler} />
             <button type="button" className="logout" onClick={this.onLogout}> Logout </button>
           </div>
@@ -110,7 +129,7 @@ class NoteApp extends Component {
           </Routes>
         </main>
         <Footer />
-      </>
+      </NoteContext.Provider>
     );
   }
 }

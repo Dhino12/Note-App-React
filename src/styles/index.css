@@ -1,3 +1,7 @@
+html {
+  transition: .8s ease;
+}
+
 @font-face {
   font-family: 'barlow-medium';
   src: url('../../public/Barlow-Medium.ttf');
@@ -14,6 +18,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme='dark'] {
+  color: #eee;
+  background-color: #212121;
+}
+
+[data-theme='dark'] .card,
+[data-theme='dark'] .card h1, 
+[data-theme='dark'] .bg-red, 
+[data-theme='dark'] .arsip, 
+[data-theme='dark'] .floatingButton,
+[data-theme='dark'] .archiveButton {
+  border-color: white!important;
+  color: white;
+  fill: white;
 }
 
 code {
