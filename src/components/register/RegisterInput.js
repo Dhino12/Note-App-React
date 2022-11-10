@@ -1,6 +1,8 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function RegisterInput({ register }) {
@@ -34,9 +36,12 @@ function RegisterInput({ register }) {
                 email,
                 password,
             });
+
+            return false;
         }
 
         alert('Password kamu belum benar');
+        return true;
     }
 
     return (
@@ -65,7 +70,7 @@ function RegisterInput({ register }) {
                 </label>
                 <input
                   type="password"
-                  className={password.includes(validPassword) ? '' : 'border-red'}
+                  className={password === validPassword ? '' : 'border-red'}
                   id="password"
                   placeholder="isikan kembali password"
                   value={validPassword}
@@ -79,5 +84,9 @@ function RegisterInput({ register }) {
         </article>
     );
 }
+
+RegisterInput.propTypes = {
+    register: PropTypes.func.isRequired,
+};
 
 export default RegisterInput;

@@ -12,4 +12,12 @@ function closeLoading() {
     Swal.close();
 }
 
-export { Loading, closeLoading };
+function noData(message) {
+    Swal.fire({
+        timer: 2000,
+        title: message,
+        icon: 'warning',
+    });
+}
+
+export { Loading, closeLoading, noData };

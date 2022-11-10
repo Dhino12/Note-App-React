@@ -19,10 +19,10 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
 
-    const { notesTmp } = this.props;
+    // const { notesTmp } = this.props;
     this.state = {
       showModal: false,
-      notes: notesTmp,
+      notes: [],
     };
 
     this.onShowModal = this.onShowModal.bind(this);
@@ -89,11 +89,11 @@ class HomePage extends Component {
 
     return (
       <>
-        <ModalInput
-          show={showModal}
-          closeModal={this.onHideModal}
-          addNote={this.onAddNoteHandler}
-        />
+         <ModalInput
+           show={showModal}
+           closeModal={this.onHideModal}
+           addNote={this.onAddNoteHandler}
+         />
         <Jumbotron showModal={this.onShowModal} />
         {notes.length === 0 ? (
           <EmptyNotes page="Catatan" />
@@ -113,7 +113,6 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  notesTmp: PropTypes.array,
   search: PropTypes.string.isRequired,
 };
 

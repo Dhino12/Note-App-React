@@ -8,9 +8,9 @@ function ToggleLanguage() {
                     <button type="button" className="toggle-language" onClick={toggleLanguage}>
                         {' '}
                         { language === 'ID' ? (
-                            'EN'
-                        ) : (
                             'ID'
+                        ) : (
+                            'EN'
                         ) }
                         {' '}
                     </button>

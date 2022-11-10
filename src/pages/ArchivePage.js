@@ -5,7 +5,7 @@ import NotesList from '../components/main/notes-list';
 import { filtering, searchNotes } from '../utils/utils';
 import EmptyNotes from '../components/empty/EmptyNotes';
 import { deleteNote, getArchiveNote, unArchive } from '../data/api';
-import { closeLoading, Loading } from '../components/loading/Loading';
+import { closeLoading, Loading, noData } from '../components/loading/Loading';
 
 class ArchivePage extends Component {
     constructor(props) {
@@ -43,8 +43,10 @@ class ArchivePage extends Component {
     render() {
         const { search } = this.props;
         let { archives } = this.state;
+        closeLoading();
 
-        if (archives === null) {
+        if (archives === null || archives.length === 0) {
+            noData('Tidak ada data arsip');
             return (
                 <article className="container">
                     <EmptyNotes page="Arsip" />

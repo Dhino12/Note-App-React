@@ -211,6 +211,10 @@ header h1 {
   top: 5px;
 }
 
+.note-wrapper {
+  margin-top: 20vh;
+}
+
 /* login */
 .title-login, .form-wrapper p, .form-wrapper h1 {
   text-align: center;

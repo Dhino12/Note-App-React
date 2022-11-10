@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function LoginInput({ login }) {
@@ -53,5 +54,9 @@ function LoginInput({ login }) {
         </article>
     );
 }
+
+LoginInput.propTypes = {
+    login: PropTypes.func.isRequired,
+};
 
 export default LoginInput;

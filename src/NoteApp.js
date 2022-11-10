@@ -4,7 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import NotFound from './components/empty/NotFound';
 import Footer from './components/footer/Footer';
 import SearchWrapper from './components/header/Search';
-import { getNotes, getUserLogged, putAccessToken } from './data/api';
+import { getUserLogged, putAccessToken } from './data/api';
 import ArchivePage from './pages/ArchivePage';
 import DetailPage from './pages/DetailPage';
 import HomePage from './pages/HomePage';
@@ -13,6 +13,7 @@ import RegisterPage from './pages/RegisterPage';
 import NoteContext from './context/NoteContext';
 import ToggleTheme from './components/header/ToggleTheme';
 import ToggleLanguage from './components/header/ToggleLanguage';
+import { en, id } from './utils/localization';
 
 class NoteApp extends Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class NoteApp extends Component {
       search: '',
       authedUser: null,
       initializing: true,
-      notesTmp: undefined,
       theme: localStorage.getItem('theme') || 'light',
       language: localStorage.getItem('language') || 'ID',
       toggleTheme: () => {
@@ -55,12 +55,9 @@ class NoteApp extends Component {
   async componentDidMount() {
     const { data } = await getUserLogged();
     const { theme } = this.state;
-    const notes = await getNotes();
-
     this.setState(() => ({
       authedUser: data,
       initializing: false,
-      notesTmp: notes.data,
     }));
 
     document.documentElement.setAttribute('data-theme', theme);
@@ -96,12 +93,12 @@ class NoteApp extends Component {
 
   render() {
     const {
-      search, notesTmp, initializing, authedUser,
+      search, authedUser, language,
     } = this.state;
 
-    if (initializing) {
-      return null;
-    }
+    // if (initializing) {
+    //   return null;
+    // }
 
     if (authedUser === null) {
       return (
@@ -133,12 +130,14 @@ class NoteApp extends Component {
             <ToggleTheme />
             <ToggleLanguage />
             <SearchWrapper search={this.onSearchNoteHandler} />
-            <button type="button" className="logout" onClick={this.onLogout}> Logout </button>
+            <button type="button" className="logout" onClick={this.onLogout}>
+              { language === 'ID' ? id.logout : en.logout }
+            </button>
           </div>
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<HomePage notesTmp={notesTmp} search={search} />} />
+            <Route path="/" element={<HomePage search={search} />} />
             <Route path="/archive" element={<ArchivePage search={search} />} />
             <Route path="/detail/:id" element={<DetailPage />} />
             <Route path="*" element={<NotFound />} />
